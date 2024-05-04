@@ -21,8 +21,11 @@
 ;;
 ;;  cwd.el provides Emacs integration with `cwd'. When the global
 ;;  `cwd-minor-mode' is active, changes in the `default-directory' of the
-;;  current buffer are sent to `cwd'. One can also manually set/get the cwd
-;;  using the functions `cwd-set' and `cwd-get'.
+;;  current buffer are sent to `cwd'. The cwd can also be manually set to
+;;  `default-directory' via the command `cwd-set'.
+;;
+;; In addition, Lisp code can get the current cwd by calling `cwd-get'. The
+;; function `cwd-find-file' is provided as an example application.
 ;;
 ;;; Code:
 
@@ -61,12 +64,22 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 ;;;###autoload
 (defun cwd-set (&rest _)
   "Set the cwd to `default-directory' by calling `cwd-program'."
+  (interactive)
   (cwd--call-process cwd-write-arg default-directory))
 
 ;;;###autoload
 (defun cwd-get ()
   "Get the cwd from `cwd-program'."
   (cwd--call-process cwd-read-arg))
+
+;;;###autoload
+(defun cwd-find-file (arg)
+  "Find file starting from the cwd.
+ARG will suppress this behavior and make it start from the current
+`default-directory'."
+  (interactive "P")
+  (let ((default-directory (if arg default-directory (cwd-get))))
+    (call-interactively #'find-file)))
 
 (defun cwd--set-if-necessary (&rest _)
   "Set the cwd unless the minibuffer is currently selected."
