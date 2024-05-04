@@ -40,9 +40,6 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 (defvar cwd--current-hook-transient nil
   "The current self-removing function on a hook.")
 
-(defvar cwd--minibuffer-original-buffer nil
-  "The current buffer before the minibuffer was selected.")
-
 (defvar cwd--last-default-directory nil
   "Previous value of `default-directory'.")
 
@@ -54,12 +51,10 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
       (progn
         (setq cwd--last-default-directory default-directory)
         (add-hook 'window-selection-change-functions #'cwd--set-if-necessary)
-        (add-hook 'minibuffer-mode-hook #'cwd--minibuffer-record-previous-buffer)
         (add-hook 'window-buffer-change-functions #'cwd--set-if-necessary)
         (when cwd-set-on-focus
           (add-function :after after-focus-change-function #'cwd--handle-focus-event)))
     (remove-hook 'window-selection-change-functions #'cwd--set-if-necessary)
-    (remove-hook 'minibuffer-mode-hook #'cwd--minibuffer-record-previous-buffer)
     (remove-hook 'window-buffer-change-functions #'cwd--set-if-necessary)
     (remove-function after-focus-change-function #'cwd--handle-focus-event)))
 
@@ -75,9 +70,7 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 
 (defun cwd--set-if-necessary (&rest _)
   "Set the cwd unless the minibuffer is currently selected."
-  (unless (or (active-minibuffer-window)
-              (equal default-directory cwd--last-default-directory)
-              (equal (current-buffer) cwd--minibuffer-original-buffer))
+  (unless (equal default-directory cwd--last-default-directory)
     (setq cwd--last-default-directory default-directory)
     (setq cwd--minibuffer-original-buffer nil)
     (cwd-set)))
@@ -114,11 +107,6 @@ from the hook after running."
   (unless cwd--current-hook-transient
     (cwd--add-hook-transient 'post-command-hook
       #'cwd-set)))
-
-(defun cwd--minibuffer-record-previous-buffer ()
-  "Record the buffer that was current before entering the minibuffer."
-  (setq cwd--minibuffer-original-buffer
-        (window-buffer (minibuffer-selected-window))))
 
 (provide 'cwd)
 ;;; cwd.el ends here
