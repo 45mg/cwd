@@ -65,7 +65,7 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 (defun cwd-set (&rest _)
   "Set the cwd to `default-directory' by calling `cwd-program'."
   (interactive)
-  (cwd--call-process cwd-write-arg default-directory))
+  (cwd--call-process cwd-write-arg (expand-file-name default-directory)))
 
 ;;;###autoload
 (defun cwd-get ()
