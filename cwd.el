@@ -33,9 +33,9 @@
   "Non-nil means set the cwd when an Emacs frame gains/loses focus.
 Setting this will ensure that the cwd follows Emacs as closely as possible.")
 
-(defvar cwd-program "cwdfilemanager"
+(defvar cwd-program "cwd"
   "The program to call in order to set/read the cwd.")
-(defvar cwd-read-arg nil
+(defvar cwd-read-arg "-r"
   "Argument to pass `cwd-program' to read the cwd.")
 (defvar cwd-write-arg "-w"
   "Argument to pass `cwd-program' to set the cwd.")

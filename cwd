@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+# We keep track of the Common Working Directory (cwd) using a file:
+tmpfile=/tmp/cwd_"$USER" # default value
+
+while getopts ':f:w:r' opt; do
+    case $opt in
+        f) # Specify the file for the following operation.
+            tmpfile=$OPTARG
+            ;;
+        w) # Write arg to the file. Use this to set the cwd.
+            echo "$OPTARG" > "$tmpfile"
+            exit 0
+            ;;
+        r) # Return file contents. Use this to get the cwd.
+            if ! [ -e "$tmpfile" ]; then # create if doesn't exist
+                install -m 600 /dev/null "$tmpfile"
+                echo "$HOME" > "$tmpfile"
+            fi
+            cat "$tmpfile"
+            exit 0
+            ;;
+        *) break
+    esac
+done
+
+>&2 echo "cwd: incorrect usage"
+>&2 echo "cwd: see source file $0 for explanation"
+exit 1
