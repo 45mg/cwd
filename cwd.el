@@ -70,7 +70,7 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 ;;;###autoload
 (defun cwd-get ()
   "Get the cwd from `cwd-program'."
-  (cwd--call-process cwd-read-arg))
+  (file-name-as-directory (cwd--call-process cwd-read-arg)))
 
 ;;;###autoload
 (defun cwd-find-file (arg)
