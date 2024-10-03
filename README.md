@@ -15,5 +15,5 @@ Run `make` to install `cwd`.
 ## Bash
 Add to your `.bashrc`:
 ``` bash
-PROMPT_COMMAND="${PROMPT_COMMAND};cwd -w "'$PWD'
+PROMPT_COMMAND="${PROMPT_COMMAND};cwd -w "'"$PWD"'
 ```
