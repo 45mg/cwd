@@ -1,4 +1,4 @@
- ;;; cwd.el --- Emacs integration with `cwd' -*- lexical-binding: t; -*-
+;;; cwd.el --- Emacs integration with `cwd' -*- lexical-binding: t; -*-
 ;;
 ;; Copyright (C) 2024
 ;;
@@ -8,7 +8,7 @@
 ;; Modified: May 04, 2024
 ;; Version: 0.0.1
 ;; Keywords: files local maint tools unix
-;; Homepage: TODO
+;; Homepage: https://github.com/45mg/cwd
 ;; Package-Requires: ((emacs "27.1"))
 ;;
 ;; This file is not part of GNU Emacs.
