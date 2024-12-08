@@ -24,6 +24,15 @@ while getopts ':f:w:r' opt; do
     esac
 done
 
->&2 echo "cwd: incorrect usage"
->&2 echo "cwd: see source file $0 for explanation"
+>&2 cat <<EOF
+Usage:  cwd [-f cwd_file] -w dir_name
+        cwd [-f cwd_file] -r
+
+Options:
+       -f cwd_file: use given file for cwd_file instead of the
+                    default (/tmp/cwd_$USER)
+       -w dir_name: write dir_name to cwd_file
+       -r:          get CWD from cwd_file
+
+EOF
 exit 1

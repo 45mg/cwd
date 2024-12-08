@@ -1,8 +1,20 @@
 `cwd` is a tiny shell script that provides a single Common Working Directory
 (CWD) for terminals, text editors, and the like.
 
-It should be simple to integrate into a number of applications (precmd hooks,
-shell aliases...).
+You use the `cwd` program to access/write the CWD. It should be simple to
+integrate into a number of applications (precmd hooks, shell aliases...).
+
+# Usage
+```
+Usage:  cwd [-f cwd_file] -w dir_name
+        cwd [-f cwd_file] -r
+
+Options:
+       -f cwd_file: use given file for cwd_file instead of the
+                    default (/tmp/cwd_$USER)
+       -w dir_name: write dir_name to cwd_file
+       -r:          get CWD from cwd_file
+```
 
 # Setup
 
