@@ -1,5 +1,5 @@
 `cwd` is a tiny shell script that provides a single Common Working Directory
-for terminals, text editors, and the like.
+(CWD) for terminals, text editors, and the like.
 
 It should be simple to integrate into a number of applications (precmd hooks,
 shell aliases...).

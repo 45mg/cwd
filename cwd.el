@@ -16,29 +16,29 @@
 ;;; Commentary:
 ;;
 ;;  `cwd' is a tiny shell script that provides a single Common Working Directory
-;;  for terminals, text editors, and the like. It should be simple to integrate
-;;  into a number of applications (precmd hooks, shell aliases...).
+;;  (CWD) for terminals, text editors, and the like. It should be simple to
+;;  integrate into a number of applications (precmd hooks, shell aliases...).
 ;;
 ;;  cwd.el provides Emacs integration with `cwd'. When the global
 ;;  `cwd-minor-mode' is active, changes in the `default-directory' of the
-;;  current buffer are sent to `cwd'. The cwd can also be manually set to
+;;  current buffer are sent to `cwd'. The CWD can also be manually set to
 ;;  `default-directory' via the command `cwd-set'.
 ;;
-;; In addition, Lisp code can get the current cwd by calling `cwd-get'. The
+;; In addition, Lisp code can get the current CWD by calling `cwd-get'. The
 ;; function `cwd-find-file' is provided as an example application.
 ;;
 ;;; Code:
 
 (defvar cwd-set-on-focus nil
-  "Non-nil means set the cwd when an Emacs frame gains/loses focus.
-Setting this will ensure that the cwd follows Emacs as closely as possible.")
+  "Non-nil means set the CWD when an Emacs frame gains/loses focus.
+Setting this will ensure that the CWD follows Emacs as closely as possible.")
 
 (defvar cwd-program "cwd"
-  "The program to call in order to set/read the cwd.")
+  "The program to call in order to set/read the CWD.")
 (defvar cwd-read-arg "-r"
-  "Argument to pass `cwd-program' to read the cwd.")
+  "Argument to pass `cwd-program' to read the CWD.")
 (defvar cwd-write-arg "-w"
-  "Argument to pass `cwd-program' to set the cwd.")
+  "Argument to pass `cwd-program' to set the CWD.")
 
 (defvar cwd--current-hook-transient nil
   "The current self-removing function on a hook.")
@@ -63,18 +63,18 @@ Setting this will ensure that the cwd follows Emacs as closely as possible.")
 
 ;;;###autoload
 (defun cwd-set (&rest _)
-  "Set the cwd to `default-directory' by calling `cwd-program'."
+  "Set the CWD to `default-directory' by calling `cwd-program'."
   (interactive)
   (cwd--call-process cwd-write-arg (expand-file-name default-directory)))
 
 ;;;###autoload
 (defun cwd-get ()
-  "Get the cwd from `cwd-program'."
+  "Get the CWD from `cwd-program'."
   (file-name-as-directory (cwd--call-process cwd-read-arg)))
 
 ;;;###autoload
 (defun cwd-find-file (arg)
-  "Find file starting from the cwd.
+  "Find file starting from the CWD.
 ARG will suppress this behavior and make it start from the current
 `default-directory'."
   (interactive "P")
@@ -82,7 +82,7 @@ ARG will suppress this behavior and make it start from the current
     (call-interactively #'find-file)))
 
 (defun cwd--set-if-necessary (&rest _)
-  "Set the cwd unless the minibuffer is currently selected."
+  "Set the CWD unless the minibuffer is currently selected."
   (unless (equal default-directory cwd--last-default-directory)
     (setq cwd--last-default-directory default-directory)
     (setq cwd--minibuffer-original-buffer nil)
