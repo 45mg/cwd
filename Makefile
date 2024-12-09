@@ -1,8 +1,8 @@
 PREFIX ?= /usr/local
 
-.PHONY: cwd clean
+.PHONY: install clean
 
-cwd:
+install:
 	mkdir -p $(PREFIX)/bin
 	install -m 0755 cwd $(PREFIX)/bin/cwd
 
